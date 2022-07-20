@@ -1,0 +1,19 @@
+{
+  "name": "bienes-raices-mvc",
+  "version": "1.0.0",
+  "description": "Proyecto con nodejs ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "MVC",
+    "Pug",
+    "Tailwind",
+    "MySQL",
+    "Sequelize"
+  ],
+  "author": "Centinela Code",
+  "license": "ISC"
+}
