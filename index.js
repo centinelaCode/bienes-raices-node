@@ -9,6 +9,10 @@ Habilitamos Template Engine: pug
 app.set('view engine', 'pug')
 app.set('views', './views')
 
+/*===========================
+carpeta publica: public
+=============================*/
+app.use(express.static('public'))
 
 
 /*===========================
