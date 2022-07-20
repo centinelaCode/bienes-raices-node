@@ -2,6 +2,12 @@
 
 export const formularioLogin = (req, res) => {
   res.render('auth/login', {
-    autenticado: false
+    
+  });
+}
+
+export const formularioRegistro = (req, res) => {
+  res.render('auth/registro', {
+    
   });
 }
