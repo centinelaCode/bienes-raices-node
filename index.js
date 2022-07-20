@@ -4,9 +4,17 @@ import usuarioRoutes from './routes/usuarioRoutes.js'
 const app = express();
 
 /*===========================
+Habilitamos Template Engine: pug
+=============================*/
+app.set('view engine', 'pug')
+app.set('views', './views')
+
+
+
+/*===========================
 Routes
 =============================*/
-app.use('/', usuarioRoutes);
+app.use('/auth', usuarioRoutes);
 
 
 /*===========================
