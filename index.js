@@ -1,16 +1,17 @@
 import express from 'express';
+import usuarioRoutes from './routes/usuarioRoutes.js'
 
 const app = express();
 
-//routes
-app.get('/', (req, res) => {
-  res.send('Hola Mundo Express');
-})
+/*===========================
+Routes
+=============================*/
+app.use('/', usuarioRoutes);
 
-app.get('/nosotros', (req, res) => {
-  res.send('Información de nosotros');
-})
 
+/*===========================
+Port and Listen
+=============================*/
 const port = 3001;
 app.listen(port, () => {
   console.log(`Server run on port ${port}`)
