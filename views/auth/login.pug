@@ -1,4 +1,6 @@
 div 
   h2(class="text-center") Login
-  p Inicia sesion
-
+  if autenticado
+    p Usuario Autenticado
+  else 
+    p Inicia Sesión
