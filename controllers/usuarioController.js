@@ -15,7 +15,7 @@ export const formularioRegistro = (req, res) => {
 
 export const registrar = async(req, res) => {
 
-  const { nombre, email } = req.body;
+  const { nombre, email, password } = req.body;
 
   // validacion
   await check('nombre').notEmpty().withMessage('El nombre es requerido').run(req);
@@ -53,9 +53,14 @@ export const registrar = async(req, res) => {
   }
   console.log(existeUsuario)
 
-  return;
-  const usuario = await Usuario.create(req.body);
-    res.json(usuario);
+  // alamacena un usuario
+  await Usuario.create({
+    nombre, 
+    email,
+    password,
+    token: 123
+  });
+    
   
 }
 
