@@ -90,14 +90,22 @@ export const confirmarCuenta = async(req, res, next) => {
   if(!usuario) {
     return res.render('auth/confirmar-cuenta',{
       pagina: 'Error al confirmar tu cuenta',
-      mensaje: 'Hubo un error al confirmar tu cuenta, intenta de nuevo.',
+      mensaje: 'Hubo un error al confirmar tu cuenta, intenta de nuevo',
       error: true
     })
   }
 
+  // Confirmar la cuienta
+  usuario.token = null;
+  usuario.confirmado = true;
+  await usuario.save();
 
-  // res.render con el mensaje 
+  res.render('auth/confirmar-cuenta',{
+    pagina: 'Cuenta Confirmada ',
+    mensaje: 'La cuenta se confirmo Correctamente',    
+  })
   
+  // console.log(usuario)
 }
 
 
