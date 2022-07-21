@@ -4,6 +4,12 @@ import db from './config/db.js'
 
 const app = express();
 /*===========================
+=> Habilitar lectura d eformularios
+=============================*/
+app.use(express.urlencoded({extended: true}))
+
+
+/*===========================
 => Conexión a la DB
 =============================*/
 try {
@@ -25,6 +31,7 @@ app.set('views', './views')
 => carpeta publica: public
 =============================*/
 app.use(express.static('public'))
+
 
 
 /*===========================

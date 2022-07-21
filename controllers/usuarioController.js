@@ -19,5 +19,5 @@ export const formularioOlvidePassword = (req, res) => {
 }
 
 export const registrar = (req, res) => {
-  console.log('Registrando....')
+  console.log(req.body);
 }
