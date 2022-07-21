@@ -74,10 +74,32 @@ export const registrar = async(req, res) => {
   res.render('templates/mensaje', {
     pagina: 'Cuenta Creada Correctamente',
     mensaje: 'Hemos Enviado un Email de Confirmaicón, presiona en el enlace'
-  });
-    
+  });  
+}
+
+
+export const confirmarCuenta = async(req, res, next) => {
+  const { token } = req.params;
+  // console.log(token);
+
+  // verificar que el token sea valido
+  const usuario = await Usuario.findOne({ where: {token}})
+  console.log(usuario);
+
+  // verificar la cuenta 
+  if(!usuario) {
+    return res.render('auth/confirmar-cuenta',{
+      pagina: 'Error al confirmar tu cuenta',
+      mensaje: 'Hubo un error al confirmar tu cuenta, intenta de nuevo.',
+      error: true
+    })
+  }
+
+
+  // res.render con el mensaje 
   
 }
+
 
 export const formularioOlvidePassword = (req, res) => {
   res.render('auth/olvide-password', {
