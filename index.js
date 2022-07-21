@@ -4,7 +4,7 @@ import db from './config/db.js'
 
 const app = express();
 /*===========================
-Conexión a la DB
+=> Conexión a la DB
 =============================*/
 try {
   await db.authenticate();
@@ -15,25 +15,26 @@ try {
 
 
 /*===========================
-Habilitamos Template Engine: pug
+=> Habilitamos Template Engine: pug
 =============================*/
 app.set('view engine', 'pug')
 app.set('views', './views')
 
+
 /*===========================
-carpeta publica: public
+=> carpeta publica: public
 =============================*/
 app.use(express.static('public'))
 
 
 /*===========================
-Routes
+=> Routes
 =============================*/
 app.use('/auth', usuarioRoutes);
 
 
 /*===========================
-Port and Listen
+=> Port and Listen
 =============================*/
 const port = 3001;
 app.listen(port, () => {
