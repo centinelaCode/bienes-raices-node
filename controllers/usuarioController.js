@@ -1,4 +1,4 @@
-
+import Usuario from '../models/Usuario.js';
 
 export const formularioLogin = (req, res) => {
   res.render('auth/login', {
@@ -18,6 +18,8 @@ export const formularioOlvidePassword = (req, res) => {
   });
 }
 
-export const registrar = (req, res) => {
-  console.log(req.body);
+export const registrar = async(req, res) => {
+  const usuario = await Usuario.create(req.body);
+
+  res.json(usuario);
 }
