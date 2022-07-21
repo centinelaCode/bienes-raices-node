@@ -16,6 +16,9 @@ export const formularioRegistro = (req, res) => {
 export const registrar = async(req, res) => {
   // validacion
   await check('nombre').notEmpty().withMessage('El nombre es requerido').run(req);
+  await check('email').isEmail().withMessage('Ingresa un Email valido').run(req);
+  await check('password').isLength({ min: 6 }).withMessage('El Password debe ser de almenos 6 caracteres').run(req);
+  await check('repetir_password').equals('password').withMessage('Los Password deben ser iguales').run(req);
 
   let resultado = validationResult(req)
   res.json(resultado.array());
