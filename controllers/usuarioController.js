@@ -53,7 +53,7 @@ export const registrar = async(req, res) => {
       }
     });
   }
-  console.log(existeUsuario)
+  // console.log(existeUsuario)
 
   // alamacena un usuario
   const usuario = await Usuario.create({
