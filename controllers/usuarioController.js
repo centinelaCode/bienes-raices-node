@@ -24,12 +24,9 @@ export const registrar = async(req, res) => {
   // await check('repetir_password').not().equals('password').withMessage('Los Password deben ser iguales').run(req);
   let resultado = validationResult(req);
 
-
   // return res.json(resultado.array())
 
-  // verificar que resultado este vacio
-  // console.log(req.body.password);
-  // console.log(req.body.repetir_password);
+  // verificar que resultado este vacio  
   if(!resultado.isEmpty()) {
     // si resultado NO esta vacio queire decir que hay errores y se deben mostrar en la vista
     return res.render('auth/registro', {
@@ -42,7 +39,7 @@ export const registrar = async(req, res) => {
     });
   }
 
-  // verificar que usuario no est duplicao (email)
+  // verificar que usuario no esta duplicado (email)
   const existeUsuario = await Usuario.findOne({ where: { email }})
   if(existeUsuario) {
     return res.render('auth/registro', {
@@ -53,7 +50,6 @@ export const registrar = async(req, res) => {
         email: req.body.email
       }
     });
-
   }
   console.log(existeUsuario)
 
