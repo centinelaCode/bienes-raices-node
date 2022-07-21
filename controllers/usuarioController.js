@@ -17,3 +17,7 @@ export const formularioOlvidePassword = (req, res) => {
     pagina: 'Recupera tu acceso a Bienes Raices'
   });
 }
+
+export const registrar = (req, res) => {
+  console.log('Registrando....')
+}
