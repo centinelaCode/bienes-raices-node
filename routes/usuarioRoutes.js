@@ -4,7 +4,8 @@ import {
   formularioRegistro, 
   formularioOlvidePassword, 
   registrar,
-  confirmarCuenta
+  confirmarCuenta,
+  resetPassword
 } from '../controllers/usuarioController.js'
 
 const router = express.Router();
@@ -19,6 +20,7 @@ router.post('/registro', registrar);
 router.get('/confirmar/:token', confirmarCuenta);
 
 router.get('/olvide-password', formularioOlvidePassword);
+router.post('/olvide-password', resetPassword);
 
 
 

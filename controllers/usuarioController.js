@@ -133,7 +133,31 @@ export const confirmarCuenta = async(req, res, next) => {
 =============================*/
 export const formularioOlvidePassword = (req, res) => {
   res.render('auth/olvide-password', {
-    pagina: 'Recupera tu acceso a Bienes Raices'
+    pagina: 'Recupera tu acceso a Bienes Raices',
+    csrfToken: req.csrfToken(),
   });
+}
+
+
+
+/*===========================
+=> Controller para resetear el password (es el post donde enviamos el email)
+=============================*/
+export const resetPassword = async(req, res) => {
+  // validacion  
+  await check('email').isEmail().withMessage('Ingresa un Email valido').run(req);  
+  
+  let resultado = validationResult(req);
+  // return res.json(resultado.array())
+
+  // verificar que resultado este vacio  
+  if(!resultado.isEmpty()) {
+    // si resultado NO esta vacio queire decir que hay errores y se deben mostrar en la vista
+    return res.render('auth/olvide-password', {
+      pagina: 'Recupera tu acceso a Bienes Raices',
+      csrfToken: req.csrfToken(),
+      errores: resultado.array()      
+    });
+  }
 }
 
