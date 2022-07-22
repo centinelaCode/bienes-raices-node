@@ -1,7 +1,7 @@
 import { check, validationResult } from 'express-validator'
 import { generarId } from '../helpers/tokens.js'
 import Usuario from '../models/Usuario.js';
-import { emailRegistro } from '../helpers/emails.js'
+import { emailRegistro, emailOlvidePassword } from '../helpers/emails.js'
 
 /*===========================
 => Controller para mostrar el formulario Login
@@ -114,7 +114,7 @@ export const confirmarCuenta = async(req, res, next) => {
     })
   }
 
-  // Confirmar la cuienta
+  // Confirmar la cuenta
   usuario.token = null;
   usuario.confirmado = true;
   await usuario.save();
@@ -172,5 +172,36 @@ export const resetPassword = async(req, res) => {
       errores: [{msg: 'El Email no esta registrado'}]     
     });
   }
+
+  // Como el usuario si existe se debe: generar un token y enviar un email
+  usuario.token = generarId();
+  await usuario.save();
+
+  // Enviar email
+  emailOlvidePassword({
+    nombre: usuario.nombre,
+    email: usuario.email,
+    token: usuario.token
+  })
+
+
+  // renderizar mensaje con las indicaciones que revise su correo
+  res.render('templates/mensaje', {
+    pagina: 'Restablece tu Password',
+    mensaje: 'Hemos Enviado un Email con las instrucciones, presiona en el enlace'
+  });  
 }
+
+
+export const comprobarToken = async(req, res, next) => {
+  
+  
+  
+}
+
+
+export const nuevoPassword = (req, res) => {
+
+}
+
 
