@@ -3,18 +3,32 @@ import { generarId } from '../helpers/tokens.js'
 import Usuario from '../models/Usuario.js';
 import { emailRegistro } from '../helpers/emails.js'
 
+/*===========================
+=> Controller para mostrar el formulario Login
+=============================*/
 export const formularioLogin = (req, res) => {
   res.render('auth/login', {
     pagina: 'Iniciar Seción'
   });
 }
 
+
+/*===========================
+=> Controller para mostrar el formulario Registro
+=============================*/
 export const formularioRegistro = (req, res) => {
+  // console.log(req.csrfToken());
+
   res.render('auth/registro', {
-    pagina: 'Crear Cuenta'
+    pagina: 'Crear Cuenta',
+    csrfToken: req.csrfToken()
   });
 }
 
+
+/*===========================
+=> Controller para cuando creamos un registro
+=============================*/
 export const registrar = async(req, res) => {
 
   const { nombre, email, password } = req.body;
@@ -33,6 +47,7 @@ export const registrar = async(req, res) => {
     // si resultado NO esta vacio queire decir que hay errores y se deben mostrar en la vista
     return res.render('auth/registro', {
       pagina: 'Crear Cuenta',
+      csrfToken: req.csrfToken(),
       errores: resultado.array(),
       usuario: {
         nombre: req.body.nombre,
@@ -46,6 +61,7 @@ export const registrar = async(req, res) => {
   if(existeUsuario) {
     return res.render('auth/registro', {
       pagina: 'Crear Cuenta',
+      csrfToken: req.csrfToken(),
       errores: [{msg: 'El usuario ya esta registrado'}],
       usuario: {
         nombre: req.body.nombre,
@@ -78,6 +94,9 @@ export const registrar = async(req, res) => {
 }
 
 
+/*===========================
+=> Controller para mostrar vista confirmar cuenta (avisa que s eha enviado un email)
+=============================*/
 export const confirmarCuenta = async(req, res, next) => {
   const { token } = req.params;
   // console.log(token);
@@ -103,12 +122,15 @@ export const confirmarCuenta = async(req, res, next) => {
   res.render('auth/confirmar-cuenta',{
     pagina: 'Cuenta Confirmada ',
     mensaje: 'La cuenta se confirmo Correctamente',    
-  })
-  
+  })  
   // console.log(usuario)
 }
 
 
+
+/*===========================
+=> Controller para mostrar formulario olvidepassword
+=============================*/
 export const formularioOlvidePassword = (req, res) => {
   res.render('auth/olvide-password', {
     pagina: 'Recupera tu acceso a Bienes Raices'

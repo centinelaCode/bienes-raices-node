@@ -1,5 +1,7 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import usuarioRoutes from './routes/usuarioRoutes.js'
+import csrf from 'csurf';
 import db from './config/db.js'
 
 const app = express();
@@ -8,6 +10,12 @@ const app = express();
 =============================*/
 app.use(express.urlencoded({extended: true}))
 
+
+/*===========================
+=> Habilitar cookie -parser and CSFR
+=============================*/
+app.use(cookieParser());
+app.use(csrf({cookie: true}))
 
 /*===========================
 => Conexión a la DB
