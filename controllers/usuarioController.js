@@ -193,8 +193,28 @@ export const resetPassword = async(req, res) => {
 }
 
 
-export const comprobarToken = async(req, res, next) => {
-  
+export const comprobarToken = async(req, res) => {
+  const { token } = req.params;
+  // console.log(token);
+
+  // verificar que el token sea valido
+  const usuario = await Usuario.findOne({ where: {token}})
+  // console.log(usuario);
+
+  // verificar la cuenta 
+  if(!usuario) {
+    return res.render('auth/confirmar-cuenta',{
+      pagina: 'Restablece tu Password',
+      mensaje: 'Hubo un error al validar tu información, intenta de nuevo',
+      error: true
+    })
+  }
+
+  // resete Token
+  usuario.token = null;
+  await usuario.save();
+
+  // se muestra el form para que ingrese el nuevo password
   
   
 }
