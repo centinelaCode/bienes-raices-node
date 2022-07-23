@@ -9,9 +9,42 @@ import { emailRegistro, emailOlvidePassword } from '../helpers/emails.js'
 =============================*/
 export const formularioLogin = (req, res) => {
   res.render('auth/login', {
-    pagina: 'Iniciar Seción'
+    pagina: 'Iniciar Seción',
+    csrfToken: req.csrfToken()
   });
 }
+
+
+
+/*===========================
+=> Controller para autenticar
+=============================*/
+export const autenticar = async(req, res) => {
+  // Validación
+  await check('email').isEmail().withMessage('El Email es obligatorio').run(req);
+  await check('password').notEmpty().withMessage('El Password es obligatorio').run(req);
+
+  let resultado = validationResult(req);
+
+  // verificar que resultado este vacio  
+  if(!resultado.isEmpty()) {
+    // si resultado NO esta vacio queire decir que hay errores y se deben mostrar en la vista
+    return res.render('auth/login', {
+      pagina: 'Iniciar Sesión',
+      csrfToken: req.csrfToken(),
+      errores: resultado.array()      
+    });
+  }
+
+  
+
+
+
+}
+
+
+
+
 
 
 /*===========================
@@ -194,6 +227,9 @@ export const resetPassword = async(req, res) => {
 }
 
 
+/*===========================
+=> Controller para comprobar token cuando se hace reset al password
+=============================*/
 export const comprobarToken = async(req, res) => {
   const { token } = req.params;
   // console.log(token);
@@ -225,6 +261,9 @@ export const comprobarToken = async(req, res) => {
 }
 
 
+/*===========================
+=> Controller para guardar el nuevo password en la DB
+=============================*/
 export const nuevoPassword = async(req, res) => {
   // validamos el password
   await check('password').isLength({ min: 6 }).withMessage('El Password debe ser de almenos 6 caracteres').run(req);
