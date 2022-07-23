@@ -1,7 +1,6 @@
 import { check, validationResult } from 'express-validator'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import { generarId } from '../helpers/tokens.js'
+import { generarId, generarJWT } from '../helpers/tokens.js'
 import Usuario from '../models/Usuario.js';
 import { emailRegistro, emailOlvidePassword } from '../helpers/emails.js'
 
@@ -68,16 +67,20 @@ export const autenticar = async(req, res) => {
   }
 
   // Autenticar al usuario (paso todas las validaciones)
-  const tokenJWT = jwt.sign({
-    nombre: 'raul',
-    empresa: 'El Siglo de Durango',
-    tecnologias: 'NodeJS'
-  },"palabrasupersecreta", {
-    expiresIn: '1d'
-  });
+  const tokenJWT = generarJWT({id: usuario.id});
   // console.log(tokenJWT);
 
-  
+  // almacenar el JWT en un cookie
+
+
+  return res.cookie('_token', tokenJWT, {
+    httpOnly: true,
+    // secure: true,
+    // sameSite: true
+  }).redirect('/mis-propiedades')
+
+
+
 
 
 
