@@ -210,18 +210,22 @@ export const comprobarToken = async(req, res) => {
     })
   }
 
-  // resete Token
-  usuario.token = null;
-  await usuario.save();
-
   // se muestra el form para que ingrese el nuevo password
-  
+  res.render('auth/reset-password', {
+    pagina: 'Reestablece tu Password',
+    csrfToken: req.csrfToken(),
+  })
+
+
+  // resete Token
+  // usuario.token = null;
+  // await usuario.save();
   
 }
 
 
 export const nuevoPassword = (req, res) => {
-
+  console.log('Guardando Password...')
 }
 
 
