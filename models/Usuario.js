@@ -27,4 +27,9 @@ const Usuario = db.define('usuarios',{
   }
 })
 
+// Method Personalizado de sequilize
+Usuario.prototype.verificarPassword = function (password_user){
+  return bcrypt.compareSync(password_user, this.password);
+}
+
 export default Usuario;
